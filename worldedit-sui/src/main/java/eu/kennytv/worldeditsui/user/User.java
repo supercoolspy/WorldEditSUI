@@ -22,6 +22,7 @@ import eu.kennytv.worldeditsui.compat.ProtectedRegionWrapper;
 import eu.kennytv.worldeditsui.drawer.base.DrawedType;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 public final class User {
@@ -29,7 +30,7 @@ public final class User {
     private final UUID uuid;
     private SelectionCache selectionCache;
     private SelectionCache selectedWGRegionCache;
-    private ProtectedRegionWrapper selectedWGRegion;
+    private final ArrayList<ProtectedRegionWrapper> selectedWGRegion = new ArrayList<>();
     private boolean selectionShown;
     private boolean clipboardShown;
     private long expireTimestamp = -1;
@@ -101,13 +102,20 @@ public final class User {
         }
     }
 
-    @Nullable
-    public ProtectedRegionWrapper getSelectedWGRegion() {
+    public ArrayList<ProtectedRegionWrapper> getSelectedWGRegion() {
         return selectedWGRegion;
     }
 
-    public void setSelectedWGRegion(@Nullable final ProtectedRegionWrapper selectedWGRegion) {
-        this.selectedWGRegion = selectedWGRegion;
+    public void addSelectedWGRegion(@Nullable final ProtectedRegionWrapper selectedWGRegion) {
+        this.selectedWGRegion.add(selectedWGRegion);
+    }
+
+    public void removeSelectedWGRegion(@Nullable final ProtectedRegionWrapper selectedWGRegion) {
+        this.selectedWGRegion.remove(selectedWGRegion);
+    }
+
+    public void clearSelectedWGRegion() {
+        this.selectedWGRegion.clear();
     }
 
     public void clearCaches() {

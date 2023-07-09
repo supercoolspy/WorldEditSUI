@@ -55,6 +55,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Location;
@@ -246,9 +247,9 @@ public final class WorldEditSUIPlugin extends JavaPlugin {
             final LocalSession session = worldEditPlugin.getSession(player);
             final RegionSelector selector = session.getRegionSelector(new BukkitWorld(player.getWorld()));
 
-            // Selected WorldGuard region
-            final ProtectedRegionWrapper selectedWGRegion = user.getSelectedWGRegion();
-            if (selectedWGRegion != null) {
+            // Selected WorldGuard regions
+            final ArrayList<ProtectedRegionWrapper> selectedWGRegions = user.getSelectedWGRegion();
+            for (ProtectedRegionWrapper selectedWGRegion : selectedWGRegions) {
                 drawSelection(player, user, selectedWGRegion.getRegion(), selectedWGRegion.getSelectionType(), DrawedType.WG_REGION);
             }
 
